@@ -8,12 +8,6 @@ public class DirectionIndicator : MonoBehaviour
     private Vector2 previous;
     private Vector2 current;
 
-    void Orbit()
-    {
-        transform.position = player.position;
-        //transform.RotateAround(player.position, Vector3.forward, 0);
-    }
-
     void Start()
     {
         
@@ -24,8 +18,21 @@ public class DirectionIndicator : MonoBehaviour
     {
         previous = current;
         current = player.position;
-        float angle = Vector2.Angle(previous, current);
-        transform.eulerAngles = new Vector3(0,0,angle);
         Orbit();
+        Turn();
+    }
+
+    void Orbit()
+    {
+        transform.position = new Vector3(player.position.x, player.position.y, -1);
+    }
+
+    void Turn()
+    {
+        Vector3 relativePos = current - previous;
+        if (relativePos != Vector3.zero) { 
+            float angle = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        }
     }
 }
