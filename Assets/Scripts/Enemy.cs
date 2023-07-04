@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 {
     public static event Action<Enemy> OnEnemykill;
 
-    [SerializeField] float moveSpeed = 2f;
+    [SerializeField] float moveSpeed = 3f;
     Rigidbody2D rb;
     Transform target;
     Vector2 moveDirection;
@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
     {
         if (target)
         {
-            rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * moveSpeed;
+            rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * moveSpeed * Time.deltaTime;
         }
     }
 }
