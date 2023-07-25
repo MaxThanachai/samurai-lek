@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 80
+  attackRange: 1.2
+  attackPower: 1
 --- !u!61 &4055230465847230409
 BoxCollider2D:
   m_ObjectHideFlags: 0

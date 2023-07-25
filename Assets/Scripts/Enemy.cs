@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public static event Action<Enemy> OnEnemykill;
-
     [SerializeField] float moveSpeed = 3f;
+    [SerializeField] float attackRange = 3f;
+    [SerializeField] int attackPower = 1;
     Rigidbody2D rb;
-    Transform target;
+    GameObject target;
     Vector2 moveDirection;
 
     private void Awake()
@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        target = GameObject.Find("Player").transform;
+        target = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -27,10 +27,11 @@ public class Enemy : MonoBehaviour
     {
         if (target)
         {
-            Vector3 direction = (target.position - transform.position).normalized;
+            Vector3 direction = (target.transform.position - transform.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             rb.rotation = angle;
             moveDirection = direction;
+            AttackPlayer();
         }
     }
 
@@ -41,4 +42,14 @@ public class Enemy : MonoBehaviour
             rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * moveSpeed * Time.deltaTime;
         }
     }
+
+    private void AttackPlayer()
+    {
+        if ((target.transform.position - transform.position).magnitude > attackRange) return;
+        HealthPoint targetHp = target.GetComponent<HealthPoint>();
+        if (targetHp == null) return;
+        targetHp.ModifyHealthPoint(-attackPower);
+        Debug.Log("Attack player");
+    }
+
 }
