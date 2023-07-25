@@ -7,7 +7,7 @@ public class HealthPoint : MonoBehaviour
     public int defaultMaxHealthPoint = 1;
 
     private int maxHealthPoint;
-    public int healthPoint;
+    private int healthPoint;
 
     void Start()
     {
