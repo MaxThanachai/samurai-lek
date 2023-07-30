@@ -4,31 +4,35 @@ using UnityEngine;
 
 public class PlayerAttackBehaviour : MonoBehaviour
 {
-    Vector3 attackDirection;
-    private Vector2 previous;
-    private Vector2 current;
-    float TimerForNextAttack, Cooldown;
+    public float attackRange = 2;
+
+    private Vector3 attackDirection;
+    private Vector3 previous;
+    private Vector3 current;
+    private float attackCooldown, attackDuration;
+    private bool isAttacking = false;
+
     void Start()
     {
-        Cooldown = 3;
-        TimerForNextAttack = Cooldown;
+        attackCooldown = 3;
+        attackDuration = 0.75f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        previous = current;
-        current = transform.position;
-        attackDirection = (current - previous).normalized;
+        CalculateAttackDirection();
 
-        if (TimerForNextAttack > 0)
+        if (attackCooldown > 0)
         {
-            TimerForNextAttack -= Time.deltaTime;
+            attackCooldown -= Time.deltaTime;
+            isAttacking = false;
         }
-        else if (TimerForNextAttack <= 0)
+        else if (attackDuration > 0)
         {
-            TimerForNextAttack = Cooldown;
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position + attackDirection, new Vector2(1, 1), 0);
+            attackDuration -= Time.deltaTime;
+            isAttacking = true;
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position + attackDirection, new Vector2(attackRange, attackRange), 0);
 
             foreach (Collider2D collider in colliders)
             {
@@ -38,11 +42,27 @@ public class PlayerAttackBehaviour : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            attackCooldown = 3;
+            attackDuration = 0.75f;
+        }
     }
+
     void OnDrawGizmos()
     {
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.color = isAttacking ? new Color(1, 0, 0, 0.5f) : new Color(1, 0, 0, 0.1f);
         Vector3 attackPosition = transform.position + attackDirection;
-        Gizmos.DrawCube(attackPosition, new Vector3(1, 1, 1));
+        Gizmos.DrawCube(attackPosition, new Vector3(attackRange, attackRange, 1));
+    }
+
+    void CalculateAttackDirection()
+    {
+        previous = current;
+        current = transform.position;
+        Vector3 normalized = (current - previous).normalized;
+        if (normalized.magnitude == 0) return;
+        attackDirection = normalized;
+        Debug.Log((current - previous).normalized);
     }
 }
