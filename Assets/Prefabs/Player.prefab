@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2689540685495944388}
   - component: {fileID: -4750555199835370851}
   - component: {fileID: -1547726277061610832}
+  - component: {fileID: -7566154065980559644}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -176,3 +177,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMaxHealthPoint: 1
+--- !u!114 &-7566154065980559644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7919495887646793257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3191cfdae713741ac99a23a1d2deed54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupRange: 2
+  targetTag: Loot

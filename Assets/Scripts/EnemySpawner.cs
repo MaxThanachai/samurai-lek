@@ -1,52 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class EnemySpawner : MonoBehaviour
 {
-    /* [SerializeField]
-     private GameObject swarmerPrefab;
-
-     [SerializeField]
-     private float swarmerInterval = 3.5f;
-
-     void Start()
-     {
-         StartCoroutine(spawnEnemy(swarmerInterval, swarmerPrefab));
-     }
-
-     private IEnumerator spawnEnemy(float interval, GameObject enemy)
-     {
-         yield return new WaitForSeconds(interval);
-         GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-5f,5), Random.Range(-5f, 5), 0), Quaternion.identity);
-         StartCoroutine(spawnEnemy(interval, newEnemy));
-     }*/
-
-    /*[SerializeField]
-    private float spawnRate = 1f;
-    [SerializeField]
-    private GameObject enemyPrefab;
-    [SerializeField]
-    private bool canSpawn = true;
-
-    private void Start()
-    {
-        StartCorotine(Spawner());
-    }
-
-    private IEnumerator spawnEnemy()
-    {
-        WaitForSeconds wait = new WaitForSeconds(spawnRate);
-
-        while (canSpawn)
-        {
-            yield return wait;
-            int rand = Random.Range(0, enemyPrefab.Length);
-            GameObject enemyToSpawn = enemyPrefab[rand];
-            Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
-        }
-    }*/
     public int height = 20;
     public int width = 20;
     public GameObject theEnemy;
@@ -55,17 +12,23 @@ public class EnemySpawner : MonoBehaviour
     public int enemyLimit = 10;  
     public int enemyDistance = 7;
 
+    GameObject player;
+
     void Start()
     {
-
+        player = GameObject.Find("Player");
         StartCoroutine(enemyDrop());
     }
 
     private IEnumerator enemyDrop()
     {
         while (enemyCount < enemyLimit)
-        {   
-            playerPosition = GameObject.Find("Player").transform.position;
+        {
+            if (!player)
+            {
+                break;
+            }
+            playerPosition = player.transform.position;
             float xSpawner = transform.position.x;
             float ySpawner = transform.position.y;
             float xPos = Random.Range(xSpawner-(width/2),xSpawner + (width/2));

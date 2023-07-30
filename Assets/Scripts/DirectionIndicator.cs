@@ -16,10 +16,17 @@ public class DirectionIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        previous = current;
-        current = player.position;
-        Orbit();
-        Turn();
+        if (!player)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            previous = current;
+            current = player.position;
+            Orbit();
+            Turn();
+        }
     }
 
     void Orbit()
