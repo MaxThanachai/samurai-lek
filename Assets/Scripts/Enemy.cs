@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target)
+        if (target && target.transform)
         {
             Vector3 direction = (target.transform.position - transform.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -37,9 +37,13 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (target)
+        if (target && target.transform)
         {
             rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * moveSpeed * Time.deltaTime;
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, 0);
         }
     }
 
