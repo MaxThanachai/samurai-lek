@@ -14,7 +14,7 @@ public class LootBehaviour : MonoBehaviour
     [SerializeField] int lootValue = 1;
 
     GameObject pickedUpBy;
-    float moveSpeed = 1f;
+    float moveSpeed = -5f;
 
     // Start is called before the first frame update
     void Start()

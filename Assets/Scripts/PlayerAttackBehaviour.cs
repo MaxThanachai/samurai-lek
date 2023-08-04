@@ -15,7 +15,7 @@ public class PlayerAttackBehaviour : MonoBehaviour
     void Start()
     {
         attackCooldown = 3;
-        attackDuration = 0.75f;
+        attackDuration = 0.25f;
     }
 
     // Update is called once per frame
@@ -63,6 +63,5 @@ public class PlayerAttackBehaviour : MonoBehaviour
         Vector3 normalized = (current - previous).normalized;
         if (normalized.magnitude == 0) return;
         attackDirection = normalized;
-        Debug.Log((current - previous).normalized);
     }
 }
