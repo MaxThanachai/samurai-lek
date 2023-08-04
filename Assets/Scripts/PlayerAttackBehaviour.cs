@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttackBehaviour : MonoBehaviour
 {
-    public float attackRange = 2;
+    public float attackRange = 1.5f;
 
     private Vector3 attackDirection;
     private Vector3 previous;
