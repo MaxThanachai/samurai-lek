@@ -720,6 +720,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5739436380425030906, guid: 43b198383cde040bfb1be7b3f3a784f6, type: 3}
+      propertyPath: attackRange
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 842120469143755459, guid: 43b198383cde040bfb1be7b3f3a784f6, type: 3}
       propertyPath: m_RootOrder
       value: 1
