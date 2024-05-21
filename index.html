@@ -3,13 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test Page</title>
+  <title>Test Page with Navigation</title>
+  <script>
+    function pushState() {
+      history.pushState({}, '', 'page2');
+      document.getElementById('content').innerText = 'This is Page 2';
+    }
+
+    function replaceState() {
+      history.replaceState({}, '', 'page3');
+      document.getElementById('content').innerText = 'This is Page 3';
+    }
+
+    function goBack() {
+      history.back();
+    }
+
+    window.addEventListener('popstate', function() {
+      const currentPath = location.pathname;
+      document.getElementById('content').innerText = `Current path: ${currentPath}`;
+    });
+  </script>
 </head>
 <body>
-  <h1>This is a test page for iframes</h1>
-  <p>This content is hosted on GitHub Pages.</p>
-  <script>
-    console.log('Test script running');
-  </script>
+  <h1>Test Page for Iframe Navigation</h1>
+  <p id="content">This is the initial page.</p>
+  <button onclick="pushState()">Push State</button>
+  <button onclick="replaceState()">Replace State</button>
+  <button onclick="goBack()">Go Back</button>
 </body>
 </html>
